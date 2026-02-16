@@ -603,7 +603,7 @@ public class MathUtil {
     }
     
     /**
-     * Detect click clustering (autocl icker signature)
+     * Detect click clustering (autoclicker signature)
      * Returns cluster coefficient (0-1, higher = more clustered)
      */
     public static double clickClusterCoefficient(double[] intervals, int windowSize) {

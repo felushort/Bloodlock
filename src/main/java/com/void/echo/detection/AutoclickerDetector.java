@@ -54,7 +54,7 @@ public class AutoclickerDetector {
         double variance = MathUtil.variance(intervals);
         double stdDev = MathUtil.standardDeviation(intervals);
         double cv = stdDev / MathUtil.mean(intervals);
-        analysis.setCoefficient OfVariation(cv);
+        analysis.setCoefficientOfVariation(cv);
         
         // 4. Burst detection
         double burstScore = analyzeBurstPatterns(intervals);

@@ -273,7 +273,7 @@ public class AnomalyDetector {
      */
     private static double calculateEnsembleScore(AnomalyScore score) {
         // Weighted voting
-        double weights[] = {0.15, 0.15, 0.30, 0.25, 0.15};
+        double[] weights = {0.15, 0.15, 0.30, 0.25, 0.15};
         
         double ensemble = 
             score.getZScoreAnomaly() * weights[0] +
