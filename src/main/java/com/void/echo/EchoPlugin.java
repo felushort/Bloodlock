@@ -12,6 +12,9 @@ import com.void.echo.transparency.TransparencyManager;
 import com.void.echo.chaos.ChaosEventManager;
 import com.void.echo.command.EchoCommandExecutor;
 import com.void.echo.data.PlayerDataManager;
+import com.void.echo.manager.AlertManager;
+import com.void.echo.manager.ExemptionManager;
+import com.void.echo.integration.LuckPermsIntegration;
 import com.void.echo.util.ConfigManager;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +46,16 @@ public class EchoPlugin extends JavaPlugin {
     // Core Managers
     @Getter
     private PlayerDataManager dataManager;
+    
+    @Getter
+    private AlertManager alertManager;
+    
+    @Getter
+    private ExemptionManager exemptionManager;
+    
+    // Integrations
+    @Getter
+    private LuckPermsIntegration luckPermsIntegration;
     
     // Layer 1: Input Capture
     @Getter
@@ -165,6 +178,20 @@ public class EchoPlugin extends JavaPlugin {
             // Data management
             dataManager = new PlayerDataManager(this);
             getLogger().info("✓ Core data management initialized");
+            
+            // Alert management
+            alertManager = new AlertManager(this);
+            getLogger().info("✓ Alert management initialized");
+            
+            // Exemption management
+            exemptionManager = new ExemptionManager(this);
+            getLogger().info("✓ Exemption management initialized");
+            
+            // LuckPerms integration (optional)
+            luckPermsIntegration = new LuckPermsIntegration(this);
+            if (luckPermsIntegration.isEnabled()) {
+                getLogger().info("✓ LuckPerms integration active");
+            }
             
         } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Failed to initialize core systems!", e);

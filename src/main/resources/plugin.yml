@@ -3,6 +3,7 @@ version: '${project.version}'
 main: com.void.echo.EchoPlugin
 api-version: '1.20'
 depend: [ProtocolLib]
+softdepend: [LuckPerms]
 author: VoidDev
 description: Behavioral Integrity Engine - Human-centric Anti-Cheat
 website: https://github.com/void/echo
@@ -18,12 +19,168 @@ permissions:
   echo.admin:
     description: Full ECHO administrative access
     default: op
-  echo.bypass:
-    description: Bypass ECHO checks
+    children:
+      echo.viewscore: true
+      echo.alerts: true
+      echo.verbose: true
+      echo.exempt.manage: true
+      echo.command.*: true
+  
+  echo.staff:
+    description: Staff member access (alerts and checks)
     default: false
-  echo.alerts:
-    description: Receive ECHO alerts
-    default: op
+    children:
+      echo.viewscore: true
+      echo.alerts: true
+      echo.command.check: true
+      echo.command.info: true
+  
+  echo.bypass:
+    description: Bypass ALL ECHO checks (use carefully!)
+    default: false
+  
   echo.viewscore:
     description: View integrity scores
     default: op
+  
+  echo.alerts:
+    description: Receive ECHO alerts
+    default: op
+    children:
+      echo.alerts.level.1: true
+      echo.alerts.level.2: true
+      echo.alerts.level.3: true
+  
+  echo.alerts.level.1:
+    description: Receive basic alerts
+    default: false
+  
+  echo.alerts.level.2:
+    description: Receive important alerts
+    default: false
+  
+  echo.alerts.level.3:
+    description: Receive critical alerts
+    default: false
+  
+  echo.verbose:
+    description: Enable verbose debug output
+    default: op
+  
+  # Individual check exemptions
+  echo.exempt.all:
+    description: Exempt from all checks
+    default: false
+  
+  echo.exempt.aimbot:
+    description: Exempt from aimbot detection
+    default: false
+  
+  echo.exempt.autoclicker:
+    description: Exempt from autoclicker detection
+    default: false
+  
+  echo.exempt.killaura:
+    description: Exempt from killaura detection
+    default: false
+  
+  echo.exempt.reach:
+    description: Exempt from reach detection
+    default: false
+  
+  echo.exempt.timer:
+    description: Exempt from timer detection
+    default: false
+  
+  echo.exempt.velocity:
+    description: Exempt from velocity detection
+    default: false
+  
+  echo.exempt.scaffold:
+    description: Exempt from scaffold detection
+    default: false
+  
+  echo.exempt.fly:
+    description: Exempt from fly detection
+    default: false
+  
+  echo.exempt.manage:
+    description: Manage exemptions for other players
+    default: op
+  
+  # Individual command permissions
+  echo.command.*:
+    description: Access to all commands
+    default: op
+    children:
+      echo.command.status: true
+      echo.command.check: true
+      echo.command.profile: true
+      echo.command.violations: true
+      echo.command.reset: true
+      echo.command.exempt: true
+      echo.command.info: true
+      echo.command.logs: true
+      echo.command.export: true
+      echo.command.test: true
+      echo.command.togglelayer: true
+      echo.command.reload: true
+      echo.command.alerts: true
+      echo.command.verbose: true
+  
+  echo.command.status:
+    description: Use /echo status
+    default: op
+  
+  echo.command.check:
+    description: Use /echo check
+    default: op
+  
+  echo.command.profile:
+    description: Use /echo profile
+    default: op
+  
+  echo.command.violations:
+    description: Use /echo violations
+    default: op
+  
+  echo.command.reset:
+    description: Use /echo reset
+    default: op
+  
+  echo.command.exempt:
+    description: Use /echo exempt
+    default: op
+  
+  echo.command.info:
+    description: Use /echo info
+    default: op
+  
+  echo.command.logs:
+    description: Use /echo logs
+    default: op
+  
+  echo.command.export:
+    description: Use /echo export
+    default: op
+  
+  echo.command.test:
+    description: Use /echo test
+    default: op
+  
+  echo.command.togglelayer:
+    description: Use /echo togglelayer
+    default: op
+  
+  echo.command.reload:
+    description: Use /echo reload
+    default: op
+  
+  echo.command.alerts:
+    description: Use /echo alerts
+    default: true
+  
+  echo.command.verbose:
+    description: Use /echo verbose
+    default: op
+
