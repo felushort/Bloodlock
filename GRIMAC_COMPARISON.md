@@ -6,6 +6,8 @@
 
 **Answer**: ECHO takes a **fundamentally different approach** that makes direct comparison challenging, but in key areas, **YES - ECHO is superior**.
 
+**DISCLAIMER**: This comparison is based on ECHO's documented features and publicly available information about GrimAC. GrimAC's internal implementation details are not fully public, so some comparisons are estimates based on observable behavior and community knowledge. Scores are subjective assessments for illustrative purposes, not objective measurements.
+
 ---
 
 ## 🎯 Philosophy Comparison
@@ -61,13 +63,13 @@
 
 | Category | GrimAC | ECHO | Winner |
 |----------|--------|------|--------|
-| **Statistical Methods** | Basic | 25+ methods (skewness, kurtosis, etc.) | **ECHO** ✅ |
-| **Entropy Analysis** | None | 4 types (Shannon, Sample, Permutation, Kolmogorov) | **ECHO** ✅ |
-| **Signal Processing** | None | 20+ methods (FFT, autocorrelation, spectral) | **ECHO** ✅ |
+| **Statistical Methods** | Basic (estimated) | 25+ methods (skewness, kurtosis, etc.) | **ECHO** ✅ |
+| **Entropy Analysis** | None (publicly known) | 4 types (Shannon, Sample, Permutation, Kolmogorov) | **ECHO** ✅ |
+| **Signal Processing** | None (publicly known) | 20+ methods (FFT, autocorrelation, spectral) | **ECHO** ✅ |
 | **Anomaly Detection** | Rule-based | 5 algorithms with ensemble voting | **ECHO** ✅ |
-| **Pattern Recognition** | Limited | 10+ advanced methods | **ECHO** ✅ |
+| **Pattern Recognition** | Limited (estimated) | 10+ advanced methods | **ECHO** ✅ |
 | **Physics Modeling** | Excellent | Good (7 constants + validation) | **GrimAC** ✅ |
-| **Total Math Methods** | ~10 | **77+** | **ECHO** ✅ |
+| **Total Math Methods** | ~10 (estimated) | **77+** (documented) | **ECHO** ✅ |
 
 **GrimAC Strength**: Industry-leading physics prediction
 **ECHO Strength**: Unmatched statistical and behavioral analysis
@@ -124,11 +126,13 @@
 
 | Metric | GrimAC | ECHO |
 |--------|--------|------|
-| **CPU Overhead** | 3-7% | <5% |
-| **RAM Usage** | 80-120MB | ~150MB |
-| **TPS Impact** | <0.3 | <0.5 |
-| **Analysis Latency** | <20ms | <50ms |
+| **CPU Overhead** | 3-7% (reported by users) | <5% (estimated) |
+| **RAM Usage** | 80-120MB (reported) | ~150MB (estimated) |
+| **TPS Impact** | <0.3 (reported) | <0.5 (estimated) |
+| **Analysis Latency** | <20ms (reported) | <50ms (estimated) |
 | **Async Processing** | ✅ | ✅ |
+
+*Note: Performance metrics are estimates based on ECHO's architecture and community reports about GrimAC. Actual performance depends on server configuration, player count, and workload.*
 
 **Winner**: **GrimAC** (Slightly more optimized) - But ECHO's trade-off is worth it for deeper analysis
 
@@ -335,7 +339,10 @@ Both valuable. Different approaches. **ECHO complements GrimAC, doesn't replace 
 
 ### Question: "Is ECHO better than GrimAC yet?"
 
-### Answer: **YES, in innovation and sophistication. NO, in battle-testing.**
+### Answer: **It depends on the criteria:**
+- **YES** in innovation and sophistication
+- **NO** in battle-testing and production maturity
+- **DIFFERENT** in fundamental approach
 
 **What ECHO Does Better**:
 1. ✅ **Aim/Click Detection** (significantly better)
@@ -373,9 +380,11 @@ Both valuable. Different approaches. **ECHO complements GrimAC, doesn't replace 
 
 **Conclusion**: 
 
-# YES - ECHO is technically superior in detection sophistication and innovation.
+**YES** - ECHO is technically superior in detection sophistication and innovation.
 
-# NO - ECHO is not yet as battle-tested and mature.
+**NO** - ECHO is not yet as battle-tested and mature.
+
+**OVERALL** - ECHO offers more sophisticated detection algorithms and unique features, while GrimAC offers proven production reliability.
 
 **ECHO represents the FUTURE of anti-cheat** (behavioral + ML)
 **GrimAC represents the PRESENT** (prediction-based excellence)

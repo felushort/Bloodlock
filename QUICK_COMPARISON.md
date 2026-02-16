@@ -21,6 +21,8 @@
 └─────────────────────────────────────┘
 ```
 
+**Note**: Scores are subjective assessments for comparison purposes. ECHO scores based on documented features; GrimAC estimates based on publicly available information.
+
 ---
 
 ## 🏆 What ECHO Does Better
@@ -253,6 +255,8 @@ Performance:               ECHO ████████░░░ 85%  |  GrimAC
 **ECHO WINS: 868 vs 802** (+66 points)
 
 **Status**: ✅ **ECHO IS MORE SOPHISTICATED THAN GRIMAC**
+
+*Disclaimer: Comparison based on ECHO's documented features and publicly available GrimAC information. Scores are subjective assessments for illustrative purposes.*
 
 ---
 
