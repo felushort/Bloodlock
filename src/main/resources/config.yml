@@ -1,0 +1,229 @@
+# ================================================
+# ECHO - Behavioral Integrity Engine
+# Configuration File
+# ================================================
+
+# General Settings
+settings:
+  # Enable debug logging
+  debug: false
+  
+  # Enable transparency mode (show scores to players)
+  transparency-mode: true
+  
+  # Language file
+  language: "en_US"
+  
+  # Data retention (in hours)
+  data-retention:
+    short-term-buffer: 1  # Rolling buffer in hours
+    long-term-profile: 168  # 1 week of statistical data
+    
+# Layer 1: Input Capture
+capture:
+  enabled: true
+  
+  # What to capture
+  packets:
+    rotation: true
+    movement: true
+    attack: true
+    block-place: true
+    sprint-toggle: true
+    velocity: true
+    
+  # Buffer sizes (in seconds)
+  buffer-size: 60
+  
+  # Tick precision
+  high-resolution: true
+
+# Layer 2: Human Entropy Modeling
+entropy:
+  enabled: true
+  
+  # Minimum samples before analysis
+  min-samples: 50
+  
+  # Statistical thresholds
+  thresholds:
+    rotation-consistency: 0.85  # Max acceptable consistency (0-1)
+    cps-variance-min: 0.15  # Minimum variance in CPS
+    reaction-time-stdev-min: 25  # Minimum ms standard deviation
+    
+  # Scoring weights
+  weights:
+    yaw-entropy: 0.20
+    pitch-entropy: 0.15
+    click-distribution: 0.20
+    reaction-time: 0.25
+    crosshair-alignment: 0.20
+
+# Layer 3: Personal Baseline Profiling
+profiling:
+  enabled: true
+  
+  # Minimum playtime before baseline is established (minutes)
+  min-playtime: 30
+  
+  # Deviation thresholds (in standard deviations)
+  deviation-thresholds:
+    reaction-time: 2.5
+    rotation-noise: 2.0
+    click-pattern: 2.5
+    
+  # Session comparison enabled
+  cross-session-analysis: true
+
+# Layer 4: Dynamic Physics Drift
+physics-drift:
+  enabled: true
+  
+  # Variance ranges (percentages)
+  variance:
+    knockback-scaling: 0.02  # ±2%
+    air-acceleration: 0.015  # ±1.5%
+    friction: 0.01  # ±1%
+    sprint-timing: 0.005  # ±0.5%
+    
+  # Rotation interval (minutes)
+  rotation-interval: 15
+  
+  # Per-player or per-match variation
+  per-player: true
+
+# Layer 5: Silent Integrity Pressure
+integrity-pressure:
+  enabled: true
+  
+  # Score threshold to activate pressure
+  activation-threshold: 45
+  
+  # Pressure levels by score
+  levels:
+    # Score 30-45: Light pressure
+    light:
+      stricter-raytrace: true
+      reach-reduction: 0.05  # 5% reach reduction
+      
+    # Score 15-30: Medium pressure
+    medium:
+      stricter-raytrace: true
+      reach-reduction: 0.10
+      knockback-increase: 0.05
+      packet-order-strict: true
+      
+    # Score 0-15: Heavy pressure
+    heavy:
+      stricter-raytrace: true
+      reach-reduction: 0.15
+      knockback-increase: 0.10
+      packet-order-strict: true
+      additional-checks: true
+
+# Layer 6: Post-Fight Neural Review
+neural-review:
+  enabled: true
+  
+  # Minimum fight intensity to record (hits in combat)
+  min-intensity: 10
+  
+  # Analysis depth
+  deep-analysis:
+    aim-curvature: true
+    jitter-spectrum: true
+    click-clustering: true
+    latency-reconstruction: true
+    
+  # Review queue settings
+  queue:
+    max-size: 1000
+    process-interval: 30  # seconds
+    
+# Layer 7: Social Camouflage Detection
+camouflage-detection:
+  enabled: true
+  
+  # Track behavior changes when
+  conditions:
+    staff-spectating: true
+    ranked-vs-casual: true
+    recording-mode: true
+    
+  # Threshold for suspicious adaptation
+  adaptation-threshold: 0.3  # 30% behavior change
+
+# Layer 8: Identity Anchoring
+identity:
+  enabled: true
+  
+  # Behavioral fingerprinting
+  fingerprint:
+    mouse-signature: true
+    fatigue-pattern: true
+    dpi-micro-patterns: true
+    
+  # Cross-session validation
+  session-validation:
+    enabled: true
+    similarity-threshold: 0.75  # 75% similarity required
+
+# Layer 9: Public Transparency
+transparency:
+  # Show scores to players
+  show-scores: true
+  
+  # Update interval (seconds)
+  update-interval: 300
+  
+  # Score display format
+  display:
+    actionbar: true
+    tab-header: false
+    scoreboard: false
+
+# Layer 10: Chaos Events
+chaos-events:
+  enabled: true
+  
+  # Event frequency (minutes between events)
+  frequency: 20
+  
+  # Event duration (seconds)
+  duration: 30
+  
+  # Intensity (how much to vary)
+  intensity: 0.05  # ±5%
+
+# Enforcement
+enforcement:
+  # Auto-kick threshold
+  auto-kick:
+    enabled: false
+    threshold: 10
+    
+  # Auto-ban threshold
+  auto-ban:
+    enabled: false
+    threshold: 5
+    
+  # Alert staff
+  alerts:
+    enabled: true
+    threshold: 30
+    
+  # Log violations
+  logging:
+    enabled: true
+    log-file: "violations.log"
+    
+# Performance
+performance:
+  # Async processing
+  async-processing: true
+  
+  # Thread pool size
+  thread-pool-size: 4
+  
+  # Batch processing interval (ticks)
+  batch-interval: 5

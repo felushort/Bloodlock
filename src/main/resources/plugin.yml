@@ -1,0 +1,29 @@
+name: ECHO
+version: '${project.version}'
+main: com.void.echo.EchoPlugin
+api-version: '1.20'
+depend: [ProtocolLib]
+author: VoidDev
+description: Behavioral Integrity Engine - Human-centric Anti-Cheat
+website: https://github.com/void/echo
+
+commands:
+  echo:
+    description: Main ECHO command
+    usage: /<command> [subcommand]
+    permission: echo.admin
+    aliases: [ac, anticheat]
+
+permissions:
+  echo.admin:
+    description: Full ECHO administrative access
+    default: op
+  echo.bypass:
+    description: Bypass ECHO checks
+    default: false
+  echo.alerts:
+    description: Receive ECHO alerts
+    default: op
+  echo.viewscore:
+    description: View integrity scores
+    default: op
