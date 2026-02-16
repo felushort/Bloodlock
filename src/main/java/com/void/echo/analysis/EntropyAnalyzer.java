@@ -5,6 +5,8 @@ import com.void.echo.data.BehavioralBuffer;
 import com.void.echo.data.ClickData;
 import com.void.echo.data.PlayerDataManager;
 import com.void.echo.data.RotationData;
+import com.void.echo.detection.AimbotDetector;
+import com.void.echo.detection.AutoclickerDetector;
 import com.void.echo.util.MathUtil;
 import org.bukkit.entity.Player;
 
@@ -13,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.DoubleStream;
 
 /**
- * Layer 2: Human Entropy Modeling
+ * Layer 2: Human Entropy Modeling (Enhanced)
  * 
  * Analyzes behavioral data to determine if it exhibits natural human characteristics:
  * - Inconsistent acceleration
@@ -21,6 +23,11 @@ import java.util.stream.DoubleStream;
  * - Imperfect micro jitter
  * - Non-linear deceleration
  * - Natural variance over time
+ * 
+ * Enhanced with advanced detection algorithms:
+ * - Aimbot detection via curvature and spectral analysis
+ * - Autoclicker detection via pattern and entropy analysis
+ * - Multi-dimensional entropy calculations
  * 
  * Calculates a "Human Probability Score" from 0-100.
  */
@@ -94,11 +101,48 @@ public class EntropyAnalyzer {
             analyzeClickPatterns(clicks, result);
             analyzeReactionTimes(clicks, result);
             analyzeCrosshairAlignment(clicks, result);
+            
+            // Run advanced autoclicker detection
+            AutoclickerDetector.AutoclickerAnalysis autoclickerAnalysis = 
+                AutoclickerDetector.analyze(clicks);
+            result.setAutoclickerAnalysis(autoclickerAnalysis);
         } else {
             // Default to neutral scores
             result.setClickDistributionScore(50.0);
             result.setReactionTimeScore(50.0);
             result.setCrosshairAlignmentScore(50.0);
+        }
+        
+        // Run advanced aimbot detection on rotations
+        if (rotations.size() >= minSamples) {
+            AimbotDetector.AimbotAnalysis aimbotAnalysis = 
+                AimbotDetector.analyze(rotations);
+            result.setAimbotAnalysis(aimbotAnalysis);
+            
+            // Calculate advanced entropy metrics
+            double[] yawDeltas = rotations.stream()
+                .filter(RotationData::isSignificant)
+                .mapToDouble(RotationData::getYawDelta)
+                .toArray();
+            
+            if (yawDeltas.length >= 10) {
+                // Permutation entropy
+                double permEntropy = MathUtil.permutationEntropy(yawDeltas, 3);
+                result.setPermutationEntropy(permEntropy);
+                
+                // Sample entropy
+                double stdDev = MathUtil.standardDeviation(yawDeltas);
+                double sampEntropy = MathUtil.sampleEntropy(yawDeltas, 2, 0.2 * stdDev);
+                result.setSampleEntropy(sampEntropy);
+                
+                // Spectral flatness
+                double spectral = MathUtil.spectralFlatness(yawDeltas);
+                result.setSpectralFlatness(spectral);
+                
+                // Hurst exponent
+                double hurst = MathUtil.hurstExponent(yawDeltas);
+                result.setHurstExponent(hurst);
+            }
         }
         
         // Calculate final score
