@@ -11,8 +11,8 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/void/echo-anticheat.git
-cd echo-anticheat
+git clone https://github.com/felushort/Bloodlock.git
+cd Bloodlock
 ```
 
 2. Build with Maven:
@@ -152,7 +152,7 @@ Current implementation uses in-memory caching. To add persistent storage:
 ## Support
 
 For issues, questions, or contributions:
-- **GitHub**: https://github.com/void/echo-anticheat
+- **GitHub**: https://github.com/felushort/Bloodlock
 - **Discord**: [Coming Soon]
 - **Documentation**: See README.md
 
