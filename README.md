@@ -104,8 +104,8 @@ Typical overhead: **< 5% CPU** on modern hardware with 100 concurrent players.
 ### Building from Source
 
 ```bash
-git clone https://github.com/void/echo-anticheat.git
-cd echo-anticheat
+git clone https://github.com/felushort/Bloodlock.git
+cd Bloodlock
 mvn clean package
 ```
 
