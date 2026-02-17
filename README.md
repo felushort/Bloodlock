@@ -74,6 +74,14 @@ Key configuration areas:
 - Integrity pressure activation levels
 - Enforcement actions and thresholds
 
+## Check Implementation
+
+**Looking for where the anti-cheat checks are located?** See **[CHECKS.md](CHECKS.md)** for a detailed guide explaining:
+- Which files contain the check logic
+- What types of checks are implemented
+- How the enforcement system works
+- Architecture overview and data flow
+
 ## Commands
 
 - `/echo status` - View system status
