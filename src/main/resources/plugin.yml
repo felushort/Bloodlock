@@ -5,7 +5,7 @@ api-version: '1.20'
 depend: [ProtocolLib]
 author: VoidDev
 description: Behavioral Integrity Engine - Human-centric Anti-Cheat
-website: https://github.com/void/echo
+website: https://github.com/felushort/Bloodlock
 
 commands:
   echo:
