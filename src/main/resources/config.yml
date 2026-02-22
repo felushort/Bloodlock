@@ -139,6 +139,11 @@ neural-review:
   queue:
     max-size: 1000
     process-interval: 30  # seconds
+
+  # Analysis settings
+  analysis:
+    time-window-ms: 60000       # How far back to look at data per fight (ms)
+    suspicion-threshold: 50.0   # Score above which a fight is flagged
     
 # Layer 7: Social Camouflage Detection
 camouflage-detection:
@@ -227,3 +232,63 @@ performance:
   
   # Batch processing interval (ticks)
   batch-interval: 5
+
+# ═══════════════════════════════════════════════════════════════
+# Individual Checks  (Grim-level customisability)
+# ═══════════════════════════════════════════════════════════════
+checks:
+
+  # Reach detection
+  reach:
+    enabled: true
+    survival-reach: 3.0           # Max legitimate reach in Survival/Adventure (blocks)
+    creative-reach: 5.0           # Max legitimate reach in Creative (blocks)
+    max-ping-compensation: 1.0    # Max extra blocks added for high-ping players
+    cancel-on-violation: false    # Cancel the attack instead of only logging
+
+  # KillAura – multi-target detection
+  killaura:
+    enabled: true
+    multi-target-window-ms: 150   # Time window to detect simultaneous targets (ms)
+    max-targets-per-window: 1     # Max distinct players that can be hit in the window
+
+  # Autoclicker detection (complements entropy layer)
+  autoclicker:
+    enabled: true
+    max-cps: 20                   # Clicks per second above this is flagged
+    min-click-variance: 0.05      # Minimum coefficient of variation; below = autoclicker
+
+  # Timer hack detection (via packet frequency)
+  timer:
+    enabled: true
+    max-packets-per-second: 25    # Above vanilla ~20 pps indicates a timer client
+
+# ═══════════════════════════════════════════════════════════════
+# Per-violation-type action thresholds
+# Set threshold-for-kick/ban to 0 to disable automatic punishment.
+# ═══════════════════════════════════════════════════════════════
+violation-actions:
+  REACH:
+    alert: true
+    threshold-for-kick: 10
+    threshold-for-ban: 25
+  KILLAURA:
+    alert: true
+    threshold-for-kick: 5
+    threshold-for-ban: 10
+  ROTATION_SHIFT:
+    alert: true
+    threshold-for-kick: 20
+    threshold-for-ban: 50
+  CLICK_SHIFT:
+    alert: true
+    threshold-for-kick: 20
+    threshold-for-ban: 50
+  CAMOUFLAGE:
+    alert: true
+    threshold-for-kick: 5
+    threshold-for-ban: 10
+  FIGHT_ANALYSIS:
+    alert: true
+    threshold-for-kick: 10
+    threshold-for-ban: 20

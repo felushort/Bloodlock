@@ -255,12 +255,8 @@ public class ProfileManager {
                 analysis.getHumanProbabilityScore(),
                 analysis.getDescription()
         );
-        
-        for (Player staff : Bukkit.getOnlinePlayers()) {
-            if (staff.hasPermission("echo.alerts")) {
-                staff.sendMessage(message);
-            }
-        }
+
+        plugin.notifyStaff(message);
     }
     
     /**
