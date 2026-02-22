@@ -107,6 +107,10 @@ public class EchoCommandExecutor implements CommandExecutor, TabCompleter {
         }
         
         // Run analysis
+        if (plugin.getEntropyAnalyzer() == null) {
+            sender.sendMessage("§e[ECHO] Entropy analyzer is disabled.");
+            return;
+        }
         EntropyAnalysisResult analysis = plugin.getEntropyAnalyzer().analyze(target.getUniqueId());
         PlayerProfile profile = plugin.getDataManager().getProfile(target);
         
@@ -205,14 +209,27 @@ public class EchoCommandExecutor implements CommandExecutor, TabCompleter {
             sender.sendMessage("§c[ECHO] No permission.");
             return;
         }
-        
-        if (!(sender instanceof Player)) {
+
+        if (!(sender instanceof Player player)) {
             sender.sendMessage("§c[ECHO] This command can only be used by players.");
             return;
         }
-        
-        // TODO: Implement alert toggle (would need a data structure to track this)
-        sender.sendMessage("§a[ECHO] Alert toggle is not yet implemented.");
+
+        boolean enableAlerts;
+        if (args.length >= 2) {
+            enableAlerts = args[1].equalsIgnoreCase("on");
+        } else {
+            // Toggle: if currently opted out, enable; if currently receiving, disable
+            enableAlerts = !plugin.getAlertOptOut().contains(player.getUniqueId());
+        }
+
+        if (enableAlerts) {
+            plugin.getAlertOptOut().remove(player.getUniqueId());
+            sender.sendMessage("§a[ECHO] Alerts §2enabled§a. You will receive ECHO notifications.");
+        } else {
+            plugin.getAlertOptOut().add(player.getUniqueId());
+            sender.sendMessage("§a[ECHO] Alerts §cdisabled§a. You will no longer receive ECHO notifications.");
+        }
     }
     
     /**

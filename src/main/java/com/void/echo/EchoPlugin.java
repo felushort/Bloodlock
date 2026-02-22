@@ -12,10 +12,15 @@ import com.void.echo.transparency.TransparencyManager;
 import com.void.echo.chaos.ChaosEventManager;
 import com.void.echo.command.EchoCommandExecutor;
 import com.void.echo.data.PlayerDataManager;
+import com.void.echo.listener.EchoEventListener;
 import com.void.echo.util.ConfigManager;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -87,6 +92,10 @@ public class EchoPlugin extends JavaPlugin {
     // Thread pool for async processing
     @Getter
     private ExecutorService executorService;
+
+    // Players who have opted out of receiving alert messages (/echo alerts off)
+    @Getter
+    private Set<UUID> alertOptOut;
     
     @Override
     public void onEnable() {
@@ -114,7 +123,10 @@ public class EchoPlugin extends JavaPlugin {
         int threadPoolSize = configManager.getInt("performance.thread-pool-size", 4);
         executorService = Executors.newFixedThreadPool(threadPoolSize);
         getLogger().info("Initialized thread pool with " + threadPoolSize + " threads");
-        
+
+        // Alert opt-out set (thread-safe)
+        alertOptOut = ConcurrentHashMap.newKeySet();
+
         // Initialize core systems
         initializeCore();
         
@@ -123,7 +135,10 @@ public class EchoPlugin extends JavaPlugin {
         
         // Register commands
         getCommand("echo").setExecutor(new EchoCommandExecutor(this));
-        
+
+        // Register Bukkit event listener (connects all layers to the game)
+        getServer().getPluginManager().registerEvents(new EchoEventListener(this), this);
+
         getLogger().info("ECHO has been enabled successfully!");
         getLogger().info("All 10 behavioral layers are active.");
     }
@@ -151,6 +166,9 @@ public class EchoPlugin extends JavaPlugin {
         
         // Cleanup managers
         if (captureManager != null) captureManager.shutdown();
+        if (profileManager != null) profileManager.shutdown();
+        if (physicsDriftManager != null) physicsDriftManager.shutdown();
+        if (fightReviewer != null) fightReviewer.shutdown();
         if (transparencyManager != null) transparencyManager.shutdown();
         if (chaosManager != null) chaosManager.shutdown();
         
@@ -271,13 +289,33 @@ public class EchoPlugin extends JavaPlugin {
      */
     public void reload() {
         getLogger().info("Reloading ECHO configuration...");
-        
+
+        // Shutdown existing layers first to avoid duplicate listeners / tasks
+        if (captureManager != null) captureManager.shutdown();
+        if (profileManager != null) profileManager.shutdown();
+        if (physicsDriftManager != null) physicsDriftManager.shutdown();
+        if (fightReviewer != null) fightReviewer.shutdown();
+        if (transparencyManager != null) transparencyManager.shutdown();
+        if (chaosManager != null) chaosManager.shutdown();
+
         // Reload config
         configManager.loadConfig();
-        
-        // Reinitialize layers
+
+        // Reinitialize layers with fresh configuration
         initializeLayers();
-        
+
         getLogger().info("ECHO configuration reloaded successfully!");
+    }
+
+    /**
+     * Send an alert message to all online staff who have not opted out.
+     */
+    public void notifyStaff(String message) {
+        if (!configManager.getBoolean("enforcement.alerts.enabled", true)) return;
+        for (Player staff : getServer().getOnlinePlayers()) {
+            if (staff.hasPermission("echo.alerts") && !alertOptOut.contains(staff.getUniqueId())) {
+                staff.sendMessage(message);
+            }
+        }
     }
 }
